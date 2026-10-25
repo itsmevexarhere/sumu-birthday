@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Sumu-nee! 🌸</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&display=swap">
+<style>
+:root{
+  --bg1:#3a1f4d;--bg2:#c2456f;--orange:#ff7a1a;--pink:#ff8fb8;--paper:#f3e2b8;--ink:#2b1a10;--txt:#fff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#150d24;--bg2:#6e1f46}}
+:root[data-theme="dark"]{--bg1:#150d24;--bg2:#6e1f46}
+*{box-sizing:border-box;margin:0}
+html{height:100%;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{min-height:100%;font-family:"Patrick Hand","Comic Sans MS",cursive,sans-serif;font-size:1.2rem;color:var(--txt);
+  background:linear-gradient(170deg,var(--bg1),var(--bg2)) fixed;overflow-x:hidden}
+h1,h2,.bang{font-family:"Bangers",Impact,sans-serif;letter-spacing:2px;font-weight:400}
+section{padding:70px 18px;max-width:760px;margin:auto;position:relative}
+h2{font-size:clamp(2rem,7vw,3rem);text-align:center;color:var(--orange);text-shadow:3px 3px 0 #000;margin-bottom:28px}
+.sub{text-align:center;opacity:.85;margin:-18px 0 26px}
+
+/* petals */
+#petals{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.petal{position:absolute;top:-30px;width:14px;height:14px;background:var(--pink);border-radius:150% 0 150% 0;opacity:.85;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(720deg)}}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px;
+  background:radial-gradient(circle at 50% 35%,#ff9a3c,#c2456f 55%,#2a1240);transition:opacity .9s,transform .9s}
+#gate.go{opacity:0;transform:scale(1.4);pointer-events:none}
+.leaf{font-size:5.5rem;animation:spin 6s linear infinite;filter:drop-shadow(0 0 18px #ffd27a)}
+@keyframes spin{to{transform:rotate(360deg)}}
+#gate h1{font-size:clamp(2.6rem,10vw,4.5rem);text-shadow:4px 4px 0 #000;animation:pop 2s ease-in-out infinite}
+@keyframes pop{50%{transform:scale(1.06)}}
+button{font-family:"Bangers",Impact,sans-serif;letter-spacing:2px;font-size:1.5rem;cursor:pointer;border:4px solid #000;border-radius:50px;
+  padding:12px 30px;background:var(--orange);color:#fff;box-shadow:0 6px 0 #000;transition:transform .15s,box-shadow .15s}
+button:hover{transform:translateY(3px);box-shadow:0 3px 0 #000}
+.pulse{animation:glow 1.6s infinite}
+@keyframes glow{0%,100%{box-shadow:0 6px 0 #000,0 0 0 0 #ffb86b}50%{box-shadow:0 6px 0 #000,0 0 0 16px #ffb86b00}}
+main{display:none}main.show{display:block}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s;transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+
+/* hero */
+#hero{text-align:center;padding-top:90px}
+#hero h1{font-size:clamp(2.6rem,10vw,5rem);color:#fff;text-shadow:4px 4px 0 var(--orange),8px 8px 0 #000;line-height:1.1}
+.bob{display:inline-block;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.arrow{font-size:2rem;margin-top:30px;animation:bob 1.2s infinite}
+
+/* scroll */
+.scroll{max-width:560px;margin:auto}
+.rod{height:26px;border-radius:14px;background:linear-gradient(#7a3b12,#c9772b 50%,#7a3b12);border:3px solid #2b1a10;position:relative;z-index:2}
+.paper{background:var(--paper);color:var(--ink);max-height:0;overflow:hidden;margin:0 14px;border-left:3px solid #2b1a10;border-right:3px solid #2b1a10;
+  transition:max-height 2.6s ease-in-out;padding:0 22px}
+.in .paper{max-height:900px}
+.paper h3{font-family:"Bangers";font-size:2rem;text-align:center;color:#b3261e;padding-top:18px;font-weight:400}
+.paper p{margin:10px 0}
+.paper .step{border-left:5px solid var(--orange);padding-left:10px}
+.paper .last{padding-bottom:18px}
+
+/* bingo */
+.card{background:var(--paper);color:var(--ink);border:5px solid #2b1a10;border-radius:10px;padding:20px;box-shadow:10px 10px 0 #000;position:relative;max-width:520px;margin:auto;transform:rotate(-1.5deg)}
+.card .top{font-family:"Bangers";font-size:2.2rem;text-align:center;color:#b3261e;letter-spacing:4px}
+.name{font-family:"Bangers";font-size:2rem;text-align:center;margin:10px 0 0}
+.bounty{text-align:center;font-weight:bold;color:#b3261e;margin-bottom:12px}
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;background:repeating-linear-gradient(45deg,#e4cd98,#e4cd98 10px,#ead7a6 10px,#ead7a6 20px);
+  border:3px dashed #7a3b12;border-radius:8px;cursor:pointer;color:#7a3b12;overflow:hidden;position:relative;aspect-ratio:4/3;width:100%}
+.ph small{font-size:.8rem;opacity:.7}.ph input{display:none}.ph img{width:100%;height:100%;object-fit:cover;display:block}.ph.has{border-style:solid}
+.stat{margin:12px 0}.stat b{display:flex;justify-content:space-between}
+.bar{height:14px;border:2px solid #2b1a10;border-radius:8px;background:#fff6;overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),#ff3d6e);transition:width 1.8s cubic-bezier(.2,.8,.2,1)}
+.in .bar i{width:var(--w)}
+.stamp{position:absolute;right:-12px;bottom:60px;border:5px solid #b3261e;color:#b3261e;font-family:"Bangers";font-size:1.8rem;padding:4px 12px;border-radius:8px;
+  transform:rotate(-18deg) scale(3);opacity:0;transition:transform .5s 1.6s cubic-bezier(.3,1.6,.5,1),opacity .3s 1.6s;background:#f3e2b8cc}
+.in .stamp{transform:rotate(-18deg) scale(1);opacity:1}
+
+/* manga */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.panel{background:#fff;color:#000;border:5px solid #000;position:relative;padding:6px;transition:transform .3s}
+.panel:nth-child(1){transform:rotate(-1.5deg)}
+.panel:nth-child(2){transform:rotate(1.5deg)}
+.panel:nth-child(3){transform:rotate(-1.5deg)}
+
+.panel:hover{transform:scale(1.03) rotate(0);z-index:3}
+.panel .ph{aspect-ratio:4/5;filter:grayscale(1) contrast(1.15);transition:filter .5s;border-radius:0}
+.panel:hover .ph,.panel:active .ph{filter:none}
+.cap{font-family:"Bangers";letter-spacing:1px;background:#ffe14d;border:3px solid #000;padding:3px 8px;margin-top:6px;font-size:1.1rem}
+.bub{position:absolute;top:-16px;right:10px;background:#fff;color:#000;border:3px solid #000;border-radius:20px;padding:4px 12px;font-size:1rem;z-index:2;animation:bob 2.5s ease-in-out infinite}
+.bub:after{content:"";position:absolute;bottom:-14px;left:20px;border:8px solid transparent;border-top:12px solid #000}
+.hint{text-align:center;font-size:.95rem;opacity:.8;margin-top:14px}
+
+/* letter chat */
+.chat{display:flex;flex-direction:column;gap:14px;max-width:560px;margin:auto}
+.msg{display:flex;gap:10px;align-items:flex-end}
+.av{font-size:2rem;flex:none;background:#fff;border:3px solid #000;border-radius:50%;width:48px;height:48px;display:grid;place-items:center}
+.msg p{background:#fff;color:var(--ink);border:3px solid #000;border-radius:18px 18px 18px 4px;padding:10px 14px;box-shadow:4px 4px 0 #000}
+.msg.big p{background:var(--orange);color:#fff;font-size:1.35rem}
+.heart{display:inline-block;animation:beat 1s infinite}
+@keyframes beat{50%{transform:scale(1.4)}}
+
+/* finale */
+#finale{text-align:center}
+.seals{display:flex;gap:14px;justify-content:center;margin:20px 0}
+.seal{font-size:2.6rem;width:84px;height:84px;padding:0;border-radius:50%;background:#fff}
+.seal.ok{background:var(--pink);transform:scale(1.15);box-shadow:0 0 22px #ffd27a}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+#wish{display:none}#wish.show{display:block}
+#wish h1{font-size:clamp(2.4rem,9vw,4.4rem);color:#fff;text-shadow:4px 4px 0 var(--orange),7px 7px 0 #000;animation:bounce 1.4s ease-in-out infinite;line-height:1.1}
+@keyframes bounce{50%{transform:translateY(-14px) rotate(-2deg)}}
+.cake{width:200px;margin:30px auto 10px;position:relative;animation:rise 1s both}
+@keyframes rise{from{transform:scale(0) rotate(-20deg)}to{transform:none}}
+.tier{margin:auto;border:4px solid #000;border-radius:14px 14px 6px 6px}
+.t1{width:100px;height:46px;background:#ffd0e0}.t2{width:160px;height:54px;background:#ff8fb8}.t3{width:200px;height:58px;background:#fff3c8}
+.drip{height:14px;background:repeating-radial-gradient(circle at 10px 0,#fff 0 9px,transparent 10px 20px)}
+.candles{display:flex;gap:26px;justify-content:center;margin-bottom:-2px}
+.cd{width:14px;height:44px;background:#4aa3ff;border:3px solid #000;position:relative}
+.cd:before{content:"";position:absolute;left:-3px;top:18px;width:14px;height:8px;background:#aaa;border:2px solid #000} /* headband */
+.cd:after{content:"";position:absolute;left:-1px;top:-24px;width:10px;height:18px;background:radial-gradient(#fff,#ffb400 60%,#ff3d00);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:flick .3s infinite alternate}
+@keyframes flick{to{transform:scale(.8,1.15) rotate(6deg)}}
+.final{max-width:520px;margin:20px auto;background:var(--paper);color:var(--ink);border:4px solid #000;border-radius:12px;padding:16px;box-shadow:6px 6px 0 #000}
+#mute{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:120;font-size:1.3rem;padding:4px 12px;box-shadow:0 3px 0 #000;background:#fff;color:#000}
+.cake{cursor:pointer}.out .cd:after{display:none}
+footer{text-align:center;padding:30px 0 60px;opacity:.8}
+
+/* ===== BEAUTY UPGRADE ===== */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(circle at 85% 11%,#fff8dc 0 34px,#ffd98a66 38px 80px,transparent 170px),
+   radial-gradient(ellipse 70% 15% at 18% 100%,#1b0f2c 98%,transparent),
+   radial-gradient(ellipse 80% 12% at 78% 100%,#27143c 98%,transparent),
+   radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(1.5px 1.5px at 110px 85px,#fffa,transparent),
+   radial-gradient(2px 2px at 170px 25px,#ffe9b8,transparent);
+  background-size:auto,auto,auto,200px 120px,200px 120px,200px 120px;animation:moon 6s ease-in-out infinite alternate}
+@keyframes moon{to{filter:brightness(1.15)}}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(2px 2px at 60px 70px,#fff,transparent),radial-gradient(2.5px 2.5px at 140px 20px,#ffd6ea,transparent),radial-gradient(1.5px 1.5px at 30px 110px,#fff,transparent);
+  background-size:170px 130px;animation:twk 3s ease-in-out infinite alternate}
+@keyframes twk{from{opacity:.2}to{opacity:1}}
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:130;background:linear-gradient(90deg,#ff7a1a,#ff8fb8,#ffd27a);box-shadow:0 0 10px #ff8fb8}
+@keyframes spin2{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes shine{to{background-position:200% 0}}
+@keyframes drift{50%{transform:translateY(-20px) rotate(14deg)}}
+@keyframes sweep{from{background-position:130% 0}to{background-position:-130% 0}}
+@keyframes btnshine{60%,100%{transform:translateX(130%)}}
+@keyframes sp{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
+@keyframes rise2{to{transform:translate(var(--dx),-110vh);opacity:0}}
+
+/* headings */
+h2{background:linear-gradient(90deg,#ffb347,#ff5fa2,#ffe08a,#ffb347);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;
+  filter:drop-shadow(3px 3px 0 #000);animation:shine 5s linear infinite}
+h2::after{content:"";display:block;width:110px;height:6px;margin:10px auto 0;border-radius:6px;background:linear-gradient(90deg,transparent,#ff8fb8,#ffd27a,#ff8fb8,transparent)}
+main>section+section::before{content:"✦ 🌸 ✦";display:block;text-align:center;color:#ffd27a;letter-spacing:12px;margin:-44px 0 30px;opacity:.85}
+
+/* hero */
+#hero>*:not(.fl){position:relative;z-index:1}
+#hero::before{content:"";position:absolute;left:50%;top:48%;width:min(560px,100vw);aspect-ratio:1;border-radius:50%;z-index:0;filter:blur(34px);
+  background:conic-gradient(#ff7a1a66,#ff8fb877,#ffd27a66,#c2456f77,#ff7a1a66);animation:spin2 16s linear infinite}
+.fl{position:absolute;font-size:2.2rem;animation:drift 6s ease-in-out infinite;filter:drop-shadow(0 0 8px #ffd27a)}
+#hero h1{background:linear-gradient(180deg,#fff 30%,#ffd9e8);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(4px 4px 0 var(--orange)) drop-shadow(7px 7px 0 #000);text-shadow:none}
+
+/* gate */
+.leaf{position:relative;width:120px;height:120px;display:grid;place-items:center;animation:bob 2.6s ease-in-out infinite}
+.leaf::before,.leaf::after{content:"";position:absolute;border-radius:50%;animation:spin 12s linear infinite}
+.leaf::before{inset:-6px;border:3px dashed #fffb}.leaf::after{inset:-26px;border:2px dotted #ffd27a;animation-direction:reverse;animation-duration:18s}
+#gate::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(2px 2px at 40px 60px,#fff,transparent),radial-gradient(2.5px 2.5px at 120px 20px,#ffe9b8,transparent),radial-gradient(1.5px 1.5px at 90px 110px,#fff,transparent);background-size:150px 130px;animation:twk 2s ease-in-out infinite alternate}
+
+/* buttons */
+button{background:linear-gradient(180deg,#ffa23f,#ff6a00);position:relative;overflow:hidden}
+button::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#fff9 50%,transparent 65%);transform:translateX(-130%);animation:btnshine 3.2s infinite}
+.seal{background:#fff}.seal.ok{background:var(--pink)}#mute{background:#fff}
+
+/* paper cards */
+.card,.final,.paper{background-image:radial-gradient(#7a3b1214 1px,transparent 1px),linear-gradient(160deg,#fff3d0,#ecd29a);background-size:7px 7px,auto}
+.card::before,.final::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,#ffffff99 50%,transparent 60%);background-size:250% 100%;animation:sweep 5s linear infinite}
+.final{position:relative}
+.card{box-shadow:10px 10px 0 #000,0 0 40px #ffb34777}
+.name{background:linear-gradient(90deg,#b3261e,#ff5f7e,#b3261e);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+
+/* manga */
+.panel::before{content:"";position:absolute;top:-13px;left:50%;width:84px;height:24px;background:#ffe9a8d0;border:1px dashed #0003;transform:translateX(-50%) rotate(-3deg);z-index:2}
+.panel{box-shadow:6px 6px 0 #000,0 0 26px #ffffff33}
+
+/* chat */
+.av{box-shadow:0 0 16px #ff9a3c;background:radial-gradient(#fff,#ffe1b8)}
+.msg p{background:linear-gradient(135deg,#fff,#ffeaf2)}
+.msg.big p{background:linear-gradient(135deg,#ff7a1a,#ff4f8b);box-shadow:4px 4px 0 #000,0 0 28px #ff8fb8;animation:bob 3s ease-in-out infinite}
+
+/* finale */
+#finale{overflow:hidden}#wish{position:relative}
+#wish::before{content:"";position:absolute;left:50%;top:38%;width:min(900px,170vw);aspect-ratio:1;border-radius:50%;z-index:-1;pointer-events:none;
+  background:repeating-conic-gradient(#ffd27a40 0 9deg,transparent 9deg 18deg);-webkit-mask:radial-gradient(circle,#000,transparent 66%);mask:radial-gradient(circle,#000,transparent 66%);animation:spin2 30s linear infinite}
+#wish h1{background:linear-gradient(90deg,#fff,#ffd27a,#ff8fb8,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;
+  filter:drop-shadow(4px 4px 0 #000) drop-shadow(0 0 18px #ff8fb8);animation:bounce 1.4s ease-in-out infinite,shine 4s linear infinite}
+.cake{filter:drop-shadow(0 0 22px #ffb347aa)}
+.sp{position:fixed;width:8px;height:8px;border-radius:50%;background:#ffd27a;box-shadow:0 0 8px 2px #ff8fb8;pointer-events:none;z-index:140;animation:sp .7s ease-out forwards}
+.ember{position:absolute;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#ffd27a;box-shadow:0 0 8px 2px #ff9a3c;animation:rise2 linear forwards}
+.conf{position:absolute;top:-16px;width:9px;height:14px;animation:fall linear forwards}
+
+/* ===== FUNNY FIGHT ===== */
+.arena{position:relative;height:135px;max-width:760px;margin:16px auto 0;overflow:hidden}
+.ground{position:absolute;left:0;right:0;bottom:0;height:6px;border-radius:6px;background:linear-gradient(90deg,transparent,#ffd27a99,transparent)}
+.fgt{position:absolute;bottom:6px;width:62px;opacity:0}
+.fig{width:62px;height:auto;display:block;animation:hop .28s ease-in-out infinite alternate;filter:drop-shadow(0 3px 0 #0007)}
+@keyframes hop{to{transform:translateY(-7px)}}
+.tf{animation:tf 8s linear infinite}.sm{animation:sm 8s linear infinite}
+@keyframes tf{0%{left:-14%;bottom:6px;transform:none;opacity:0}4%{opacity:1}48%{left:56%;bottom:6px;transform:none}
+  52%{left:60%;bottom:22px;transform:rotate(-25deg)}66%{left:102%;bottom:135px;transform:rotate(720deg);opacity:1}67%,100%{left:-14%;bottom:6px;transform:none;opacity:0}}
+@keyframes sm{0%{left:-30%;opacity:0}4%{opacity:1}48%{left:44%}52%{left:50%}72%{left:50%;opacity:1}78%{left:50%;opacity:0}79%,100%{left:-30%;opacity:0}}
+.say{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#fff;color:#000;border:2px solid #000;border-radius:12px;padding:2px 8px;font-size:.85rem;opacity:0}
+.s1{animation:s1 8s infinite}.s2{animation:s2 8s infinite}.t1{animation:t1 8s infinite}
+@keyframes s1{0%,26%{opacity:0}30%,48%{opacity:1}52%,100%{opacity:0}}
+@keyframes t1{0%,22%{opacity:0}26%,48%{opacity:1}52%,100%{opacity:0}}
+@keyframes s2{0%,56%{opacity:0}60%,74%{opacity:1}78%,100%{opacity:0}}
+.boom{position:absolute;left:58%;bottom:36px;font-size:2.6rem;opacity:0;animation:boom 8s infinite}
+@keyframes boom{0%,50%{opacity:0;transform:scale(.2)}53%{opacity:1;transform:scale(1.5) rotate(10deg)}60%{opacity:0;transform:scale(2.2)}100%{opacity:0}}
+.fist{position:absolute;left:52px;top:34px;font-size:1.3rem;opacity:0;animation:fist 8s infinite}
+@keyframes fist{0%,44%{opacity:0;transform:none}46%{opacity:1}52%{opacity:1;transform:translateX(14px) scale(1.4)}58%,100%{opacity:0}}
+.arena.b *{animation-delay:-3.5s}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<g id="taif" stroke="#2b1a10" stroke-width="1.6" stroke-linejoin="round">
+ <rect x="21" y="62" width="7" height="15" rx="3" fill="#2b3a8c"/><rect x="32" y="62" width="7" height="15" rx="3" fill="#2b3a8c"/>
+ <rect x="19" y="75" width="10" height="6" rx="3" fill="#333"/><rect x="31" y="75" width="10" height="6" rx="3" fill="#333"/>
+ <rect x="9" y="44" width="9" height="18" rx="4" fill="#ff7a1a"/><rect x="42" y="44" width="9" height="18" rx="4" fill="#ff7a1a"/>
+ <rect x="17" y="42" width="26" height="24" rx="8" fill="#ff7a1a"/><rect x="26" y="42" width="8" height="12" fill="#2b3a8c"/>
+ <circle cx="13" cy="64" r="4" fill="#ffd9b0"/><circle cx="47" cy="64" r="4" fill="#ffd9b0"/>
+ <path d="M13 26 L10 10 L21 17 L24 3 L31 15 L38 3 L40 17 L50 10 L47 26 Q40 14 30 14 Q20 14 13 26Z" fill="#ffd23f"/>
+ <circle cx="30" cy="30" r="16" fill="#ffd9b0"/>
+ <path d="M14 24 Q30 12 46 24 L46 28 L14 28Z" fill="#ffd23f" stroke="none"/>
+ <rect x="14" y="21" width="32" height="7" fill="#2b3a8c"/><rect x="25" y="21.5" width="10" height="6" fill="#cfd8dc"/>
+ <circle cx="23" cy="35" r="2.6" fill="#2b1a10"/><circle cx="37" cy="35" r="2.6" fill="#2b1a10"/>
+ <circle cx="24" cy="34" r=".9" fill="#fff" stroke="none"/><circle cx="38" cy="34" r=".9" fill="#fff" stroke="none"/>
+ <path d="M16 36h5M16 39h5M44 36h-5M44 39h-5" stroke-width="1.1" fill="none"/>
+ <ellipse cx="30" cy="43" rx="3.2" ry="2.4" fill="#b3261e"/>
+</g>
+<g id="sumu" stroke="#2b1a10" stroke-width="1.6" stroke-linejoin="round">
+ <rect x="22" y="62" width="6" height="15" rx="3" fill="#ffd9b0"/><rect x="32" y="62" width="6" height="15" rx="3" fill="#ffd9b0"/>
+ <rect x="20" y="75" width="10" height="6" rx="3" fill="#333"/><rect x="30" y="75" width="10" height="6" rx="3" fill="#333"/>
+ <rect x="9" y="44" width="8" height="17" rx="4" fill="#ffd9b0"/><rect x="40" y="44" width="17" height="8" rx="4" fill="#ffd9b0"/>
+ <path d="M15 68 L20 42 H40 L45 68Z" fill="#e0325a"/>
+ <path d="M12 32 Q9 6 30 8 Q51 6 48 32 L49 42 Q44 36 44 30 L16 30 Q16 36 11 42Z" fill="#ff8fb8"/>
+ <circle cx="30" cy="30" r="16" fill="#ffd9b0"/>
+ <path d="M14 27 Q30 6 46 27 Q38 17 30 22 Q22 17 14 27Z" fill="#ff8fb8"/>
+ <path d="M16 20 Q30 13 44 20" stroke="#e0325a" stroke-width="3" fill="none"/>
+ <circle cx="19" cy="40" r="3" fill="#ff8fa3" opacity=".6" stroke="none"/><circle cx="41" cy="40" r="3" fill="#ff8fa3" opacity=".6" stroke="none"/>
+ <path d="M18 30 L27 34 M42 30 L33 34" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+ <circle cx="23" cy="36" r="2.4" fill="#1a7a3a"/><circle cx="37" cy="36" r="2.4" fill="#1a7a3a"/>
+ <path d="M25 45 Q30 40 35 45" stroke="#b3261e" stroke-width="2" fill="none"/>
+</g></defs></svg>
+<div id="bar"></div>
+<div id="petals"></div>
+<button id="mute" title="Sound on/off">🔊</button>
+
+<div id="gate">
+  <div class="leaf">🍃</div>
+  <h1>Hidden Leaf Village</h1>
+  <p>A secret S-Rank mission awaits you, Sumu-nee…</p>
+  <button id="enter" class="pulse">Enter the Village 🍥</button>
+</div>
+
+<main id="main">
+  <section id="hero">
+    <span class="fl" style="left:6%;top:26%">🌸</span><span class="fl" style="right:7%;top:22%;animation-delay:-2s">🍥</span>
+    <span class="fl" style="left:10%;top:72%;animation-delay:-4s">✨</span><span class="fl" style="right:9%;top:68%;animation-delay:-1s">🍃</span>
+    <p class="bang rv" style="font-size:1.6rem">🌸 Message from your little brother 🌸</p>
+    <h1 class="rv" style="--d:.2s">Happy<br>Birthday,<br><span class="bob">Sumu-nee!</span></h1>
+    <p class="rv" style="--d:.5s;margin-top:20px">Believe it, dattebayo! 🍥</p>
+    <div class="arena" aria-hidden="true">
+      <div class="boom">💥</div>
+      <div class="fgt sm"><div class="say s1">COME HERE, TAIF!! 😡</div><div class="say s2">Hmph! 😤</div><svg viewBox="0 0 60 84" class="fig"><use href="#sumu"/></svg><div class="fist">🥊</div></div>
+      <div class="fgt tf"><div class="say t1">Sorry Sumu-nee!! 😭</div><svg viewBox="0 0 60 84" class="fig"><use href="#taif"/></svg></div>
+      <div class="ground"></div>
+    </div>
+    <p class="hint">Daily routine: Sumu-nee vs Taif 🥊 (Taif always loses 😂)</p>
+    <div class="arrow">⬇</div>
+  </section>
+
+  <section>
+    <h2 class="rv">📜 Mission Scroll</h2>
+    <div class="scroll rv" id="scroll">
+      <div class="rod"></div>
+      <div class="paper">
+        <h3>S-RANK MISSION</h3>
+        <p><b>Client:</b> Taif (your favourite little brother)</p>
+        <p><b>Target:</b> Sumu-nee, the strongest sister alive</p>
+        <p><b>Objective:</b> Wish her the happiest birthday ever.</p>
+        <p><b>Reward:</b> Unlimited ramen 🍜 (she pays, believe it!)</p>
+        <p class="step">Step 1: Sneak past Sumu-nee’s snacks. <i>Danger: extreme.</i></p>
+        <p class="step">Step 2: Say thank you for every time she saved me. <i>Too many to count.</i></p>
+        <p class="step last">Step 3: Don’t cry. <i>…Failed already, dattebayo 😭</i></p>
+      </div>
+      <div class="rod"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rv">📕 Bingo Book</h2>
+    <div class="card rv" id="bingo">
+      <div class="top">★ BINGO BOOK ★</div>
+      <div class="ph" data-pic="pic1"><span>📸 Angry photo 😡<br><small>(photos/pic1.jpg)</small></span></div>
+      <div class="hint" style="color:#b3261e;opacity:1;margin:6px 0 0">😡 Angry mode: ON (do not touch her food)</div>
+      <div class="name">SUMU-NEE</div>
+      <div class="bounty">Bounty: 1,000,000 hugs 🤗</div>
+      <div class="stat"><b><span>Chakra Control</span><span>S-Rank</span></b><div class="bar"><i style="--w:95%"></i></div></div>
+      <div class="stat"><b><span>Punch Power</span><span>Dangerous 💥</span></b><div class="bar"><i style="--w:90%"></i></div></div>
+      <div class="stat"><b><span>Sleeping Jutsu 😴</span><span>Level 1000</span></b><div class="bar"><i style="--w:100%"></i></div></div>
+      <div class="stat"><b><span>Saving Taif</span><span>Unlimited</span></b><div class="bar"><i style="--w:100%"></i></div></div>
+      <p><b>Weakness:</b> Can’t resist good food 🍕</p>
+      <div class="stamp">TOP SISTER</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rv">💥 Funny Moments</h2>
+    <p class="sub rv">Photos turn to colour when you hover or tap!</p>
+    <div class="grid">
+      <div class="panel rv"><div class="bub">Zzz… five more minutes…</div>
+        <div class="ph" data-pic="pic2"><span>📸 Sleeping photo 😴<br><small>(photos/pic2.jpg)</small></span></div>
+        <div class="cap">Sumu-nee used SLEEPING JUTSU!</div></div>
+      <div class="panel rv" style="--d:.15s"><div class="bub">Don’t post it!</div>
+        <div class="ph" data-pic="pic3"><span>📸 Funny photo 🤪<br><small>(photos/pic3.jpg)</small></span></div>
+        <div class="cap">Funny Face Jutsu activated!</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rv">💌 Taif’s Letter</h2>
+    <p class="sub rv">(No jokes in this part, Sumu-nee. Okay maybe one.)</p>
+    <div class="chat" id="chat">
+      <div class="msg rv"><div class="av">🍥</div><p>Sumu-nee… I’m not good with words, but I tried, dattebayo.</p></div>
+      <div class="msg rv"><div class="av">🍥</div><p>Whenever I was in trouble, you were the first one to show up.</p></div>
+      <div class="msg rv"><div class="av">🍥</div><p>Every time I needed help with anything, you never said “no”. Not once.</p></div>
+      <div class="msg rv"><div class="av">🍥</div><p>You believed in me even when I didn’t believe in myself.</p></div>
+      <div class="msg rv"><div class="av">🍥</div><p>(Also thanks for not punching me every time I deserved it 😅)</p></div>
+      <div class="msg rv big"><div class="av">🍥</div><p>You’re not just my friend. You’re my sister, and that’s forever. <span class="heart">💗</span></p></div>
+    </div>
+  </section>
+
+  <section id="finale">
+    <h2 class="rv">🔮 One Last Jutsu</h2>
+    <div id="lock" class="rv">
+      <p>Unlock the final wish with the hand seals!</p>
+      <p class="hint" style="font-size:1.2rem;opacity:1">Order: 🐯 Tiger → 🐗 Boar → 🐉 Dragon</p>
+      <div class="seals">
+        <button class="seal" data-i="2">🐉</button>
+        <button class="seal" data-i="0">🐯</button>
+        <button class="seal" data-i="1">🐗</button>
+      </div>
+      <p id="msgbox" class="hint">Seals are mixed up… can you do it, Sumu-nee? 😏</p>
+    </div>
+    <div id="wish">
+      <h1>Happy Birthday,<br>Sumu-nee!</h1>
+      <div class="cake">
+        <div class="candles"><div class="cd"></div><div class="cd"></div><div class="cd"></div></div>
+        <div class="tier t1"></div><div class="drip"></div><div class="tier t2"></div><div class="tier t3"></div>
+      </div>
+      <p class="bang" style="font-size:1.8rem;margin-top:16px">Make a wish & tap the cake to blow the candles! 🎂</p>
+      <div class="final">Thank you for being my sister, my protector and my best support. May your year be full of ramen, laughter, naps and zero danger. I’ll always have your back, just like you had mine. 🌸<br><br><b>— Your little brother, Taif (dattebayo!)</b></div>
+    </div>
+  </section>
+  <div class="arena b" aria-hidden="true" style="margin-top:10px">      <div class="boom">💥</div>
+<div class="fgt sm"><div class="say s1">COME HERE, TAIF!! 😡</div><div class="say s2">Hmph! 😤</div><svg viewBox="0 0 60 84" class="fig"><use href="#sumu"/></svg><div class="fist">🥊</div></div>
+<div class="fgt tf"><div class="say t1">Sorry Sumu-nee!! 😭</div><svg viewBox="0 0 60 84" class="fig"><use href="#taif"/></svg></div>
+<div class="ground"></div>
+    </div>
+  <footer>Made with 🍥 chakra and love</footer>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+// ===== SOUND ENGINE (synthesized, no audio files needed) =====
+let AC,master,muted=false,bgm;
+function ac(){if(!AC){AC=new (window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.55;master.connect(AC.destination)}
+  if(AC.state==='suspended')AC.resume();return AC}
+function tone(f,t0,d,type='sine',v=.2,to){
+  if(muted||!AC)return;const t=AC.currentTime+t0,o=AC.createOscillator(),g=AC.createGain();
+  o.type=type;o.frequency.setValueAtTime(f,t);if(to)o.frequency.exponentialRampToValueAtTime(to,t+d);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.015);g.gain.exponentialRampToValueAtTime(.001,t+d);
+  o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05)}
+function noise(t0,d,f0,f1,v=.3){
+  if(muted||!AC)return;const t=AC.currentTime+t0,n=AC.sampleRate*d,b=AC.createBuffer(1,n,AC.sampleRate),a=b.getChannelData(0);
+  for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
+  const s=AC.createBufferSource(),f=AC.createBiquadFilter(),g=AC.createGain();s.buffer=b;f.type='bandpass';f.Q.value=1.2;
+  f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+d);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+d*.3);g.gain.linearRampToValueAtTime(0,t+d);
+  s.connect(f);f.connect(g);g.connect(master);s.start(t)}
+const sfx={
+  whoosh(){noise(0,.9,300,3500,.45);tone(200,0,.5,'sine',.15,700)},
+  click(){tone(760,0,.05,'square',.07)},
+  pop(){tone(520,0,.12,'sine',.22,950)},
+  unroll(){noise(0,2.4,250,1400,.22);for(let i=0;i<8;i++)noise(.3*i,.08,2500,1500,.12)},
+  stamp(){tone(95,0,.3,'sine',.7,38);noise(0,.14,900,200,.55)},
+  ding(i){const f=[523,659,784][i]||784;tone(f,0,.7,'triangle',.3);tone(f*2,0,.5,'sine',.1)},
+  buzz(){tone(120,0,.35,'sawtooth',.2,70);tone(90,.12,.3,'sawtooth',.15,60)},
+  blow(){noise(0,.7,2200,500,.35)},
+  cheer(){[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.4,'triangle',.22))},
+  fanfare(){[[523,0],[523,.15],[523,.3],[659,.5],[784,.75],[1047,1.1]].forEach(([f,t])=>{tone(f,t,.4,'square',.12);tone(f/2,t,.4,'triangle',.15)});
+    noise(1.1,1.2,3000,6000,.12)},
+  birthday(){
+    const N={G4:392,A4:440,B4:494,C5:523,D5:587,E5:659,F5:698,G5:784},B=.42;
+    const m=[['G4',.75],['G4',.25],['A4',1],['G4',1],['C5',1],['B4',2],['G4',.75],['G4',.25],['A4',1],['G4',1],['D5',1],['C5',2],
+      ['G4',.75],['G4',.25],['G5',1],['E5',1],['C5',1],['B4',1],['A4',2],['F5',.75],['F5',.25],['E5',1],['C5',1],['D5',1],['C5',2]];
+    let t=0;m.forEach(([n,d])=>{tone(N[n],t*B,d*B*.95,'triangle',.28);tone(N[n]/2,t*B,d*B*.95,'sine',.12);t+=d});return t*B}
+};
+function startBgm(){
+  clearInterval(bgm);const sc=[220,262,294,330,392,440,523];
+  bgm=setInterval(()=>{if(!muted)tone(sc[Math.floor(Math.random()*sc.length)],0,1.8,'sine',.05)},900)}
+$('#mute').onclick=()=>{ac();muted=!muted;$('#mute').textContent=muted?'🔇':'🔊';if(!muted)sfx.click()};
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(b&&!b.classList.contains('seal')&&b.id!=='enter'&&b.id!=='mute')sfx.click()});
+function revealSfx(el){
+  if(el.id==='scroll')setTimeout(sfx.unroll,150);
+  else if(el.id==='bingo')setTimeout(sfx.stamp,1900);
+  else if(el.matches('.msg,.panel'))sfx.pop();
+}
+// ===== END SOUND ENGINE =====
+
+function petal(){
+  const p=document.createElement('span');p.className='petal';
+  p.style.left=Math.random()*100+'vw';p.style.setProperty('--dx',(Math.random()*160-80)+'px');
+  p.style.animationDuration=(6+Math.random()*7)+'s';p.style.transform='scale('+(.6+Math.random())+')';
+  $('#petals').appendChild(p);setTimeout(()=>p.remove(),14000);
+}
+setInterval(petal,700);
+$('#enter').onclick=()=>{
+  ac();sfx.whoosh();startBgm();$('#gate').classList.add('go');$('#main').classList.add('show');
+  for(let i=0;i<25;i++)setTimeout(petal,i*80);
+  setTimeout(watch,100);
+};
+function watch(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealSfx(e.target);io.unobserve(e.target)}}),{threshold:.25});
+  $$('.rv').forEach(el=>io.observe(el));
+}
+// photo slots: put your photos in the "photos" folder as pic1.jpg ... pic5.jpg (png/webp also work)
+$$('.ph[data-pic]').forEach(box=>{
+  const ex=['jpg','jpeg','png','webp','JPG','JPEG','PNG'];let i=0;const img=new Image();img.alt='';
+  img.onload=()=>{box.querySelector('span')?.remove();box.appendChild(img);box.classList.add('has')};
+  img.onerror=()=>{if(++i<ex.length)img.src='photos/'+box.dataset.pic+'.'+ex[i]};
+  img.src='photos/'+box.dataset.pic+'.'+ex[0];
+});
+// seals
+let step=0;
+$$('.seal').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.i;
+  if(i===step){b.classList.add('ok');sfx.ding(step);step++;
+    if(step===3){setTimeout(unlock,500)}else $('#msgbox').textContent='Good! Keep going… ✨';
+  }else{
+    sfx.buzz();step=0;$$('.seal').forEach(x=>x.classList.remove('ok'));b.classList.add('shake');
+    setTimeout(()=>b.classList.remove('shake'),400);$('#msgbox').textContent='Wrong seal! Try again from Tiger 🐯';
+  }
+});
+function unlock(){
+  $('#lock').style.display='none';$('#wish').classList.add('show');
+  for(let i=0;i<90;i++)setTimeout(petal,i*60);
+  $('#wish').scrollIntoView({behavior:'smooth',block:'start'});
+  clearInterval(bgm);confetti(130);sfx.fanfare();
+  setTimeout(()=>{const d=sfx.birthday();setTimeout(startBgm,(d||11)*1000+800)},1800);
+  $('.cake').onclick=()=>{const c=$('.candles');if(c.classList.toggle('out')){sfx.blow();setTimeout(sfx.cheer,500);for(let i=0;i<40;i++)setTimeout(petal,i*50)}else sfx.pop()};
+}
+
+// ===== beauty extras =====
+function ember(){const e=document.createElement('span');e.className='ember';e.style.left=Math.random()*100+'vw';
+  e.style.setProperty('--dx',(Math.random()*120-60)+'px');e.style.animationDuration=(5+Math.random()*6)+'s';
+  $('#petals').appendChild(e);setTimeout(()=>e.remove(),11000)}
+setInterval(ember,550);
+function confetti(n){const c=['#ff7a1a','#ff8fb8','#ffd27a','#4aa3ff','#7ee081','#fff'];
+  for(let i=0;i<n;i++)setTimeout(()=>{const e=document.createElement('span');e.className='conf';e.style.left=Math.random()*100+'vw';
+    e.style.background=c[i%c.length];e.style.setProperty('--dx',(Math.random()*200-100)+'px');e.style.animationDuration=(3+Math.random()*3)+'s';
+    $('#petals').appendChild(e);setTimeout(()=>e.remove(),6500)},i*25)}
+addEventListener('scroll',()=>{const h=document.documentElement;$('#bar').style.width=(scrollY/(h.scrollHeight-innerHeight||1)*100)+'%'},{passive:true});
+document.addEventListener('pointerdown',e=>{for(let i=0;i<7;i++){const s=document.createElement('span'),a=Math.PI*2*i/7;s.className='sp';
+  s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.style.setProperty('--x',Math.cos(a)*34+'px');s.style.setProperty('--y',Math.sin(a)*34+'px');
+  document.body.appendChild(s);setTimeout(()=>s.remove(),750)}});
+</script>
+</body>
+</html>
